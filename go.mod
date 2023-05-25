@@ -1,3 +1,3 @@
-module github.com/Johnwang860424/IsCoolLab
+module IsCoolLab
 
 go 1.20
