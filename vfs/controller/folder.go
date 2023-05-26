@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// CreateFolder creates a new folder for the user
 func (fs *FileSystem) CreateFolder(username string, foldername string, description string) error {
 	user := fs.getUserByUsername(username)
 	if user == nil {
@@ -38,6 +39,7 @@ func (fs *FileSystem) CreateFolder(username string, foldername string, descripti
 	return nil
 }
 
+// ListFolders lists all the folders for the user
 func (fs *FileSystem) ListFolders(username string, sortBy string, sortOrder string) (string, error) {
 	user := fs.getUserByUsername(username)
 	if user == nil {
@@ -54,7 +56,7 @@ func (fs *FileSystem) ListFolders(username string, sortBy string, sortOrder stri
 	folders := user.Folders
 
 	if len(folders) == 0 {
-		return "", fmt.Errorf("Warning: The %s doesn't have any folders.\n", username)
+		return "", fmt.Errorf("Warning: The %s doesn't have any folders.", username)
 	}
 
 	// Create a slice to store the folder information
@@ -97,6 +99,7 @@ func (fs *FileSystem) ListFolders(username string, sortBy string, sortOrder stri
 	return result, nil
 }
 
+// DeleteFolder deletes the specified folder for the user
 func (fs *FileSystem) DeleteFolder(username string, foldername string) error {
 	user := fs.getUserByUsername(username)
 	if user == nil {
@@ -110,6 +113,7 @@ func (fs *FileSystem) DeleteFolder(username string, foldername string) error {
 	return nil
 }
 
+// RenameFolder renames the specified folder for the user
 func (fs *FileSystem) RenameFolder(username string, foldername string, newFolderName string) error {
 	user := fs.getUserByUsername(username)
 	if user == nil {
@@ -134,6 +138,7 @@ func (fs *FileSystem) RenameFolder(username string, foldername string, newFolder
 	return nil
 }
 
+// getUserByUsername returns the specified user
 func (fs *FileSystem) getUserByUsername(name string) *User {
 	user, ok := fs.Users[strings.ToLower(name)]
 	if ok {
@@ -142,6 +147,7 @@ func (fs *FileSystem) getUserByUsername(name string) *User {
 	return nil
 }
 
+// getFolderByName returns the specified folder for the user
 func (u *User) getFolderByName(foldername string) *Folder {
 	folder, ok := u.Folders[foldername]
 	if ok {
@@ -150,6 +156,7 @@ func (u *User) getFolderByName(foldername string) *Folder {
 	return nil
 }
 
+// isFolderExists checks if the specified folder exists for the user
 func (u *User) isFolderExists(foldername string) bool {
 	_, exists := u.Folders[foldername]
 	return exists
