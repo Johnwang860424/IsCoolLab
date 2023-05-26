@@ -123,12 +123,19 @@ func (fs *FileSystem) RenameFolder(username string, foldername string, newFolder
 	if folder == nil {
 		return fmt.Errorf("Error: %s doesn't exist.", foldername)
 	}
+
 	if folder.Name == newFolderName {
 		return nil // No need to rename if the new folder name is the same
 	}
+
 	if validate.ValidateNoInvalidChars(newFolderName) {
 		return fmt.Errorf("Error: The %s contain invalid chars.", newFolderName)
 	}
+
+	if validate.ValidateLength(newFolderName, 255) {
+		return fmt.Errorf("Error: The Filename be under %d characters.", 255)
+	}
+
 	if user.isFolderExists(newFolderName) {
 		return fmt.Errorf("Error: The %s has already existed.", newFolderName)
 	}
