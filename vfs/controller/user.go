@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Register register a new user
 func (fs *FileSystem) Register(name string) error {
 	if validate.ValidateNoInvalidChars(name) {
 		return fmt.Errorf("Error: The %s contain invalid chars.", name)
@@ -26,6 +27,7 @@ func (fs *FileSystem) Register(name string) error {
 	return nil
 }
 
+// check if the user exists
 func (fs *FileSystem) isUserExists(username string) bool {
 	_, ok := fs.Users[strings.ToLower(username)]
 	return ok
